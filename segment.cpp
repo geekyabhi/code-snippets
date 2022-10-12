@@ -93,7 +93,7 @@ class Segment{
         if(high<l||low>r) return ;
 
         if(low>=l&&high<=r){
-            seg[index]+=(high-val+1)*val;
+            seg[index]+=(high-low+1)*val;
             
             if(low!=high){
                 lazy[2*index+1]+=val;
