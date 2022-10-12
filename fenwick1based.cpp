@@ -6,6 +6,8 @@ class Fen{
     int n;
     vector<int>fen;
     vector<int>a;
+    public:
+
     Fen(int size){
         this->n=size+1;
         fen.resize(n,0);
@@ -46,6 +48,10 @@ class Fen{
         return query(r);
     }
 
+    void print(){
+        for(auto i:fen) cout<<i<<" ";
+        cout<<"\n";
+    }
 
 };
 
