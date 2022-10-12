@@ -11,17 +11,6 @@ class Segment{
     vector<int>seg;
     vector<int>lazy;
 
-    public:
-
-    Segment(){}
-
-    Segment(vector<int>nums){
-        this->n=nums.size();
-        this->num=nums;
-        seg.resize(4*n,0);
-        lazy.resize(4*n,0);
-    }
-
     void build_util(int index,int l,int r){
         if(l==r){
             seg[index]=num[l];
@@ -34,14 +23,6 @@ class Segment{
         int right=seg[2*index+2];
         seg[index]=(left+right);
     }
-    
-    void build(vector<int>nums){
-        this->n=nums.size();
-        this->num=nums;
-        seg.resize(4*n,0);
-        lazy.resize(4*n,0);
-        build_util(0,0,n-1);
-    }
 
     int query_util(int index,int low,int high,int l,int r){
         if(high<l||low>r) return 0;
@@ -51,10 +32,6 @@ class Segment{
         int left=query_util(2*index+1,low,mid,l,r);
         int right=query_util(2*index+2,mid+1,high,l,r);
         return (left+right);
-    }
-
-    int query(int l,int r){
-        return query_util(0,0,num.size()-1,l,r);
     }
 
     void update_util(int index,int low,int high,int pnt,int val){
@@ -72,11 +49,6 @@ class Segment{
 
         seg[index]=(left+right);
 
-    }
-
-    void update(int point,int val){
-        num[point]=val;
-        update_util(0,0,num.size()-1,point,val);
     }
 
     void update_lazy_util(int index,int low,int high,int l,int r,int val){
@@ -109,10 +81,6 @@ class Segment{
         seg[index]=seg[2*index+1]+seg[2*index+2];
     }
 
-    void update_lazy(int l,int r,int val){
-        update_lazy_util(0,0,num.size()-1,l,r,val);
-    }
-
     int query_lazy_util(int index,int low,int high,int l,int r){
 
         if(lazy[index]!=0){
@@ -130,6 +98,38 @@ class Segment{
         int left=query_lazy_util(2*index+1,low,mid,l,r);
         int right=query_lazy_util(2*index+2,mid+1,high,l,r);
         return left+right;
+    }
+
+    public:
+
+    Segment(){}
+
+    Segment(vector<int>nums){
+        this->n=nums.size();
+        this->num=nums;
+        seg.resize(4*n,0);
+        lazy.resize(4*n,0);
+    }
+    
+    void build(vector<int>nums){
+        this->n=nums.size();
+        this->num=nums;
+        seg.resize(4*n,0);
+        lazy.resize(4*n,0);
+        build_util(0,0,n-1);
+    }
+
+    int query(int l,int r){
+        return query_util(0,0,num.size()-1,l,r);
+    }
+
+    void update(int point,int val){
+        num[point]=val;
+        update_util(0,0,num.size()-1,point,val);
+    }
+
+    void update_lazy(int l,int r,int val){
+        update_lazy_util(0,0,num.size()-1,l,r,val);
     }
 
     int query_lazy(int l,int r){
