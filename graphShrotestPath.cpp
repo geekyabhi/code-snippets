@@ -32,7 +32,7 @@ class Graph{
     // DIJKSTRA never works on negative weight because it a greedy algorithm 
     // it starts reducing the next min distance when pushed into priotity queue
 
-    // DIJKSTRA USING PRIORITY QUEUE COMPLEXITY->V log(E)
+    // DIJKSTRA USING PRIORITY QUEUE COMPLEXITY->E log(V)
 
     vector<int> dikstraPQ(int src){
         vector<int>dis(n+1,1e9);
@@ -56,7 +56,7 @@ class Graph{
         return dis;
     }
 
-    //DIJKSTRA USING SETS COMPLEXITY->V log(E)
+    //DIJKSTRA USING SETS COMPLEXITY->E log(V)
     vector<int> dikstraST(int src){
         vector<int>dis(n+1,1e9);
         set<pair<int,int>>st;
@@ -117,6 +117,8 @@ class Graph{
     }
 
     // Floyd Warshell n3 complexity
+    // Do not use Floyd Warsell when there is no negative weight 
+    // then use Dijkstra since TC -> NE(log V) 
     vector<vector<int>> fw(){
         vector<vector<int>>dis(n+1,vector<int>(n+1,1e9));
         for(int i=0;i<=n;i++) dis[i][i]=0;
