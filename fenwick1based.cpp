@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+
 using namespace std;
 
 class Fen{
@@ -61,5 +62,40 @@ int main(){
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
     #endif
+    int n;cin>>n;
+    vector<int>nums;
+
+    int mx=INT16_MIN;
+
+    for(int i=0;i<n;i++){
+        int t;cin>>t;
+        nums.push_back(t);
+    }
+
+
+    for(auto i:nums)
+        if(mx<i) mx=i;
+
+    vector<int>t(mx+1,0);
+
+    for(int i=0;i<nums.size();i++){
+        t[nums[i]]++;
+    }
+
+    // for(auto i:t) cout<<i<<" ";
+    // cout<<"\n";
+
+    vector<int>ans(nums.size(),0);
+
+    Fen fn(t);
+    fn.build();
+
+    for(int i=0;i<nums.size();i++){
+        ans[i]=fn.query(nums[i]-1);
+        fn.update(nums[i],-1);
+    }
+
+    for(auto i:ans) cout<<i<<" "; 
+
     return 0;
 }
