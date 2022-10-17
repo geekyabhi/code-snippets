@@ -82,6 +82,34 @@ class Graph{
         return ans;
     }
 
+    bool dfs(int root,vector<bool>&visited,vector<bool>&reached){
+        visited[root]=true;
+        reached[root]=true;
+        if(graph.count(root)){
+            for(auto node:graph[root]){
+                if(!visited[node]&&dfs(node,visited,reached)) return true;
+                else if(reached[node]) return true;
+            }
+        }
+        reached[root]=false;
+        return false;
+    }
+
+    bool isCycle(){
+        vector<bool>visited(n+1,false);
+        vector<bool>reached(n+1,false);
+
+        for(auto root:graph){
+            if(!visited[root.first]){
+                if(dfs(root.first,visited,reached)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 };
 
 int main(){
@@ -102,9 +130,8 @@ int main(){
 
     g.print();
 
-    vector<int>ans=g.ktopo();
+    bool ans=g.isCycle();
 
-    for(auto i:ans) cout<< i<<" ";
-
+    cout<<ans;
     return 0;
 }
