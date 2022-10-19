@@ -3,6 +3,7 @@
 		"*.ejs": "html",
 		"vector": "cpp",
 		"iostream": "cpp",
-		"stack": "cpp"
+		"stack": "cpp",
+		"unordered_map": "cpp"
 	}
 }
